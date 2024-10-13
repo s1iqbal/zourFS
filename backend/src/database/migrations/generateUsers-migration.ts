@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
-import { UserEntity } from "../../user/entities/user.entity";
-
-export class generateUsers1728762230703 implements MigrationInterface {
+import { UserEntity } from "../../modules/user/entities/user.entity";
+import { faker } from '@faker-js/faker';
+export class generateUsers172876222302703 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         const tableExists = await queryRunner.hasTable('users');
         
@@ -31,12 +31,13 @@ export class generateUsers1728762230703 implements MigrationInterface {
 
         const userRepository = queryRunner.manager.getRepository(UserEntity);
 
-        const user = userRepository.create({
-            email: 'example@example.com',
-            fullName: 'John Doe'
-        });
-
-        await userRepository.save(user);
+        for(let i = 0; i < 10; i++) {
+            const user = userRepository.create({
+                email: faker.internet.email(),
+                fullName: faker.person.fullName()
+            });
+            await userRepository.save(user);
+        }
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

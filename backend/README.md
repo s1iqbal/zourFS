@@ -60,6 +60,11 @@ $ npm run migration:run
 $ npm run migration:revert
 
 ```
+
+## Swagger API
+
+Visit localhost:3000/api to see the binded swagger UI
+
 ## Run tests
 
 ```bash

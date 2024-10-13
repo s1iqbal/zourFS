@@ -4,8 +4,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { UserEntity } from './user/entities/user.entity';
+import { UserModule } from './modules/user/user.module';
+import { UserEntity } from './modules/user/entities/user.entity';
+import { PostModule } from './modules/post/post.module';
+import { PostEntity } from './modules/post/entities/post.entity';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { UserEntity } from './user/entities/user.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [UserEntity],
+      entities: [UserEntity, PostEntity],
       synchronize: false,
       autoLoadEntities: true,
     }),
@@ -26,6 +28,7 @@ import { UserEntity } from './user/entities/user.entity';
       signOptions: { expiresIn: '60s' }, // Adjust expiration as needed
     }),
     UserModule,
+    PostModule
   ],
   controllers: [ AppController],
   providers: [ AppService ],

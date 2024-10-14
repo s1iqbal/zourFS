@@ -5,9 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
-import { UserEntity } from './modules/user/entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 import { PostModule } from './modules/post/post.module';
-import { PostEntity } from './modules/post/entities/post.entity';
+import { PostEntity } from './entities/post.entity';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -25,10 +26,11 @@ import { PostEntity } from './modules/post/entities/post.entity';
     }),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'your_jwt_secret',
-      signOptions: { expiresIn: '60s' }, // Adjust expiration as needed
+      signOptions: { expiresIn: '120s' }, // Adjust expiration as needed
     }),
     UserModule,
-    PostModule
+    PostModule,
+    AuthModule
   ],
   controllers: [ AppController],
   providers: [ AppService ],

@@ -1,5 +1,5 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
-import { PostEntity } from "../../modules/post/entities/post.entity";
+import { PostEntity } from "../../entities/post.entity";
 import { faker } from '@faker-js/faker';
 export class generatePosts72876222322703 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {

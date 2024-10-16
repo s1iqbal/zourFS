@@ -26,12 +26,16 @@ export class UserService {
   }
 
   async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find();
+    // Do not return password column with the select option
+    return await this.userRepository.find({
+      comment: "Get all users",
+      select: ["id", "username", "email", "fullName"]
+    });
   }
 
   async findOne(id: number): Promise<UserEntity> {
-    const userData =
-      await this.userRepository.findOneBy({ id });
+    const userData = await this.userRepository.findOneBy({ id });
+    delete userData.password;
     if (!userData) {
       throw new HttpException(
         'User Not Found',
@@ -42,8 +46,7 @@ export class UserService {
   }
 
   async findOneByUsername(username: string): Promise<UserEntity> {
-    const userData =
-      await this.userRepository.findOneBy({ username });
+    const userData = await this.userRepository.findOneBy({ username });
     if (!userData) {
       throw new HttpException(
         'User Not Found',
